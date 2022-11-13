@@ -1,5 +1,5 @@
 <template lang="">
-  <nav class="navbar navbar-expand-lg bg-light">
+  <nav class="navbar navbar-expand-sm bg-light">
     <div class="container-fluid">
       <a class="navbar-brand" href="#">Nuxt</a>
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
@@ -24,12 +24,34 @@
             >
           </li>
           <li class="nav-item">
-            <nuxt-link active-class="active" class="nav-link" to="/login"
+            <nuxt-link
+              active-class="active"
+              class="nav-link"
+              to="/login"
+              v-if="!isAuth"
               >Login</nuxt-link
             >
+          </li>
+          <li class="nav-item" v-if="isAuth">
+            <a @click.prevent="logout" class="nav-link" href="#">Logout</a>
           </li>
         </ul>
       </div>
     </div>
   </nav>
 </template>
+
+<script>
+export default {
+  computed: {
+    isAuth() {
+      return this.$store.getters.isAuth;
+    },
+  },
+  methods: {
+    logout() {
+      this.$store.dispatch("logout");
+    },
+  },
+};
+</script>

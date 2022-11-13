@@ -1,5 +1,7 @@
 <template lang="pug">
-  form
+  form(
+    @submit.prevent="onSubmit"
+  )
     h1 login
     .form-group
       input.form-control(
@@ -10,8 +12,21 @@
         type="password"
       )
 
-    button.btn.btn-primary Login
+    button.btn.btn-primary(
+      type="submit"
+    ) Login
 </template>
+
+<script>
+export default {
+  methods: {
+    onSubmit() {
+      this.$store.dispatch("login");
+      this.$router.push("/");
+    },
+  },
+};
+</script>
 
 <style>
 form {
